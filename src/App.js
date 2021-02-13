@@ -10,13 +10,21 @@ class App extends Component {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    return <div>{this.props.loading === true ? null : <Dashboard />}</div>;
+    return (
+      <div>
+        {this.props.loading ===
+        true ? // do not show Dashboard until loading is finished
+        null : (
+          <Dashboard />
+        )}
+      </div>
+    );
   }
 }
 
 function mapStateToProps({ authedUser }) {
   return {
-    loading: authedUser === null,
+    loading: authedUser === null, //loading is true as long as authedUser is still null
   };
 }
 
