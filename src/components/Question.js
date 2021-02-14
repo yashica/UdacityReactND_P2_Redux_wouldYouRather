@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { handleVote } from "../actions/shared";
 //import { formatTweet, formatDate } from "../utils/helpers";
 
 // import {
@@ -16,22 +17,32 @@ class Question extends Component {
       withSelection: this.props.withSelection
         ? this.props.withSelection
         : false,
-      vote: "",
+      selectedOption: "",
     };
     this.onChangeValue = this.onChangeValue.bind(this);
   }
 
   onChangeValue(event) {
     console.log(event.target.value);
-    this.setState({ vote: event.target.value });
+    this.setState({ selectedOption: event.target.value });
   }
 
   submitVote = (e) => {
     e.preventDefault();
-    if (this.state.vote === "") {
+    if (this.state.selectedOption === "") {
       console.log(`No value selected yet`);
     } else {
-      console.log(`Todo: Submit value ${this.state.vote}`);
+      console.log(`Todo: Submit value ${this.state.selectedOption}`);
+
+      const { dispatch, question, authedUser } = this.props;
+
+      dispatch(
+        handleVote({
+          questionId: question.id,
+          authedUser,
+          selectedOption: this.state.selectedOption,
+        })
+      );
     }
   };
 

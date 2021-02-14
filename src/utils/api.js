@@ -24,5 +24,9 @@ export function saveQuestion(info) {
 }
 
 export function saveQuestionAnswer(info) {
-  return _saveQuestionAnswer(info);
+  return _saveQuestionAnswer({
+    authedUser: info.authedUser,
+    qid: info.questionId,
+    answer: info.selectedOption,
+  });
 }
