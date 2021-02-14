@@ -50,9 +50,9 @@ class Dashboard extends Component {
         </div>
         {this.state.page === "page1" ? (
           <div className="dashboard-tabPage">
-            <h3 className="center">
+            {/* <h3 className="center">
               Questions not answered yet by {this.props.authedUser}
-            </h3>
+            </h3> */}
             <ul className="dashboard-list">
               {this.props.unansweredQuestionsIds.map((id) => (
                 <li key={id}>
@@ -64,9 +64,9 @@ class Dashboard extends Component {
           </div>
         ) : (
           <div className={"dashboard-tabPage"}>
-            <h3 className="center">
+            {/* <h3 className="center">
               Questions answered by {this.props.authedUser}
-            </h3>
+            </h3> */}
             <ul className="dashboard-list">
               {this.props.answeredQuestionIds.map((id) => (
                 <li key={id}>
