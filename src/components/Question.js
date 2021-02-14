@@ -1,16 +1,43 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { formatTweet, formatDate } from "../utils/helpers";
+//import { formatTweet, formatDate } from "../utils/helpers";
 
-import {
-  TiArrowBackOutline,
-  TiHeartOutline,
-  TiHeartFullOutline,
-} from "react-icons/ti";
+// import {
+//   TiArrowBackOutline,
+//   TiHeartOutline,
+//   TiHeartFullOutline,
+// } from "react-icons/ti";
 
 class Question extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //withSelection: true,
+      withSelection: this.props.withSelection
+        ? this.props.withSelection
+        : false,
+      vote: "",
+    };
+    this.onChangeValue = this.onChangeValue.bind(this);
+  }
+
+  onChangeValue(event) {
+    console.log(event.target.value);
+    this.setState({ vote: event.target.value });
+  }
+
+  submitVote = (e) => {
+    e.preventDefault();
+    if (this.state.vote === "") {
+      console.log(`No value selected yet`);
+    } else {
+      console.log(`Todo: Submit value ${this.state.vote}`);
+    }
+  };
+
   viewPoll = (e) => {
     e.preventDefault();
+    console.log("View Poll..");
 
     // todo: Handle Like Tweet
   };
@@ -53,11 +80,47 @@ class Question extends Component {
           </div>
           <div>
             <p>Would you rather...</p>
-            <p>...{optionOne.text} or</p>
-            <p>...{optionTwo.text}?</p>
+            {this.state.withSelection ? (
+              <div onChange={this.onChangeValue}>
+                <p>
+                  <input type="radio" value="optionOne" name="answer" />{" "}
+                  {optionOne.text} or
+                </p>
+                <p>
+                  <input type="radio" value="optionTwo" name="answer" />{" "}
+                  {optionTwo.text}?
+                </p>
+              </div>
+            ) : (
+              // <div>
+              //   <input type="radio" id="option1" name="answers" value="option1">
+              //     {optionOne.text} or
+              //   </input>
+              //   <label for="option1">{optionOne.text} or</label>
+              //   <br></br>
+              //   <input
+              //     type="radio"
+              //     id="option2"
+              //     name="answers"
+              //     value="option2"
+              //   />
+              //   <label for="option2">{optionTwo.text}?</label>
+              //   <br></br>
+              // </div>
+              <div>
+                <p>... {optionOne.text} or</p>
+                <p>... {optionTwo.text}?</p>
+              </div>
+            )}
           </div>
           <div>
-            <button onClick={this.viewPoll}>View Poll</button>
+            <button
+              onClick={
+                this.state.withSelection ? this.submitVote : this.viewPoll
+              }
+            >
+              {this.state.withSelection ? "Submit" : "View Poll"}
+            </button>
           </div>
           {/* <div className="tweet-icons">
               <TiArrowBackOutline className="tweet-icon" />
