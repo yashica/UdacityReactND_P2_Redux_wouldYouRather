@@ -175,3 +175,29 @@ li {
   font-size: 20px;
   color: #c3392a;
 }
+
+/* Dashboard Tabview */
+.dashboard-tabPage {
+  background-color: lightblue;
+  padding-top: 4rem;
+}
+
+.dashboard-tabButton {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 50%;
+}
+
+.dashboard-tabButton:hover {
+  background-color: #777;
+}
+
+.dashboard-tabButton:focus {
+  background-color: lightblue;
+}
