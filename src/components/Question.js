@@ -52,9 +52,9 @@ class Question extends Component {
               <p>{text}</p> */}
           </div>
           <div>
-            <p>Would you rather</p>
-            <p>{optionOne.text} or</p>
-            <p>{optionTwo.text}?</p>
+            <p>Would you rather...</p>
+            <p>...{optionOne.text} or</p>
+            <p>...{optionTwo.text}?</p>
           </div>
           <div>
             <button onClick={this.viewPoll}>View Poll</button>
