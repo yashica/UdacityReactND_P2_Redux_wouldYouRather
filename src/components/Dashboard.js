@@ -1,45 +1,82 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Question from "./Question";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { page: "page1" };
+  }
+
   render() {
     console.log(this.props);
     return (
       <div>
         <div>
-          <h3 className="center">Your Timeline</h3>
-          <ul className="dashboard-list">
+          <h3 className="center">Would You Rather..</h3>
+          {/* <ul className="dashboard-list">
             {this.props.questionIds.map((id) => (
               <li key={id}>
                 <div>QUESTION ID: {id}</div>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <div>
-          <h3 className="center">
-            Questions answered by {this.props.authedUser}
-          </h3>
-          <ul className="dashboard-list">
-            {this.props.answeredQuestionIds.map((id) => (
-              <li key={id}>
-                <div>QUESTION ID: {id}</div>
-              </li>
-            ))}
-          </ul>
+          {/* <ul>
+            <li key={"page1"}> */}
+          <button
+            className="dashboard-tabButton"
+            focus={this.state.page === "page1"}
+            onClick={() => {
+              this.setState({ page: "page1" });
+            }}
+          >
+            Unanswered Questions
+          </button>
+          {/* </li>
+            <li key={"page2"}> */}
+          <button
+            className="dashboard-tabButton"
+            focus={this.state.page === "page2"}
+            onClick={() => {
+              this.setState({ page: "page2" });
+            }}
+          >
+            Answered Questions
+          </button>
+          {/* </li>
+          </ul> */}
         </div>
-        <div>
-          <h3 className="center">
-            Questions not answered yet by {this.props.authedUser}
-          </h3>
-          <ul className="dashboard-list">
-            {this.props.unansweredQuestionsIds.map((id) => (
-              <li key={id}>
-                <div>QUESTION ID: {id}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {this.state.page === "page1" ? (
+          <div className="dashboard-tabPage">
+            <h3 className="center">
+              Questions not answered yet by {this.props.authedUser}
+            </h3>
+            <ul className="dashboard-list">
+              {this.props.unansweredQuestionsIds.map((id) => (
+                <li key={id}>
+                  {/* <div>QUESTION ID: {id}</div> */}
+                  <Question id={id} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className={"dashboard-tabPage"}>
+            <h3 className="center">
+              Questions answered by {this.props.authedUser}
+            </h3>
+            <ul className="dashboard-list">
+              {this.props.answeredQuestionIds.map((id) => (
+                <li key={id}>
+                  {/* <div>QUESTION ID: {id}</div> */}
+                  <Question id={id} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
