@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { handleInitialData } from "./actions/shared";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
+import NewQuestion from "./components/NewQuestion";
 import LoadingBar from "react-redux-loading";
 
 class App extends Component {
@@ -15,7 +16,8 @@ class App extends Component {
       <div>
         <LoadingBar />
         {this.props.loading === true ? null : ( // do not show Dashboard until loading is finished
-          <Dashboard />
+          <NewQuestion />
+          // <Dashboard />
         )}
       </div>
     );
