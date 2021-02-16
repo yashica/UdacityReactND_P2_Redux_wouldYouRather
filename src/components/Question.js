@@ -32,8 +32,6 @@ class Question extends Component {
     if (this.state.selectedOption === "") {
       console.log(`No value selected yet`);
     } else {
-      console.log(`Todo: Submit value ${this.state.selectedOption}`);
-
       const { dispatch, question, authedUser } = this.props;
 
       dispatch(

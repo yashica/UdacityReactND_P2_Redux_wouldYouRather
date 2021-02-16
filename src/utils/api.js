@@ -20,7 +20,11 @@ export function getInitialData() {
 // }
 
 export function saveQuestion(info) {
-  return _saveQuestion(info);
+  return _saveQuestion({
+    optionOneText: info.optionOneText,
+    optionTwoText: info.optionTwoText,
+    author: info.author,
+  });
 }
 
 export function saveQuestionAnswer(info) {

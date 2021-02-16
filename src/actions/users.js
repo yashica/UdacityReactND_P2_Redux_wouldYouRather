@@ -1,5 +1,6 @@
 export const RECEIVE_USERS = "RECEIVE_USERS";
 export const UPDATE_USER_VOTES = "UPDATE_USER_VOTES";
+export const UPDATE_USER_QUESTIONS = "UPDATE_USER_QUESTIONS";
 
 export function receiveUsers(users) {
   return {
@@ -14,5 +15,12 @@ export function updateUserVotes({ questionId, authedUser, selectedOption }) {
     questionId,
     authedUser,
     selectedOption,
+  };
+}
+
+export function updateUserQuestions(question) {
+  return {
+    type: UPDATE_USER_QUESTIONS,
+    question,
   };
 }

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { handleAddQuestion } from "../actions/shared";
 
 class NewQuestion extends Component {
   state = {
@@ -15,8 +17,9 @@ class NewQuestion extends Component {
     e.preventDefault();
 
     const { text_option1, text_option2 } = this.state;
-
+    const { dispatch } = this.props;
     // todo: Add Tweet to Store
+    dispatch(handleAddQuestion(text_option1, text_option2));
 
     console.log(
       `New Question: Would you rather ${text_option1} or ${text_option2} ?`
@@ -76,4 +79,4 @@ class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion;
+export default connect()(NewQuestion);
