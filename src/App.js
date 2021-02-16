@@ -5,6 +5,8 @@ import { handleInitialData } from "./actions/shared";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import NewQuestion from "./components/NewQuestion";
+import DetailsPage from "./components/DetailsPage";
+
 import LoadingBar from "react-redux-loading";
 
 class App extends Component {
@@ -16,7 +18,10 @@ class App extends Component {
       <div>
         <LoadingBar />
         {this.props.loading === true ? null : ( // do not show Dashboard until loading is finished
-          <NewQuestion />
+          // qid: 6ni6ok3ym7mf1p33lnez -> not answered by tylermcginnis
+          // qid: xj352vofupe1dqz9emx13r -> answered by tylermcginnis
+          <DetailsPage match={{ params: { qid: "6ni6ok3ym7mf1p33lnez" } }} />
+          // <NewQuestion />
           // <Dashboard />
         )}
       </div>
