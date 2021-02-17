@@ -201,3 +201,19 @@ li {
 .dashboard-tabButton:focus {
   background-color: lightblue;
 }
+
+.selectedOption {
+  color: "green";
+  font-weight: bold;
+}
+
+.notSelectedOption {
+  color: "red";
+}
+.detailsContainer {
+  margin: 20;
+  border-width: 2;
+  border-radius: 5;
+  border-color: "gray";
+  background-color: "seashell";
+}

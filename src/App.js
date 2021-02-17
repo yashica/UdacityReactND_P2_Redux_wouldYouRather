@@ -20,7 +20,7 @@ class App extends Component {
         {this.props.loading === true ? null : ( // do not show Dashboard until loading is finished
           // qid: 6ni6ok3ym7mf1p33lnez -> not answered by tylermcginnis
           // qid: xj352vofupe1dqz9emx13r -> answered by tylermcginnis
-          <DetailsPage match={{ params: { qid: "6ni6ok3ym7mf1p33lnez" } }} />
+          <DetailsPage match={{ params: { qid: "xj352vofupe1dqz9emx13r" } }} />
           // <NewQuestion />
           // <Dashboard />
         )}
