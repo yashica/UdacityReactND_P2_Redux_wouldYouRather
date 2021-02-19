@@ -61,10 +61,17 @@ a {
   font-weight: bold;
 }
 
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .nav ul {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   text-decoration: none;
 }
 
@@ -83,9 +90,15 @@ li {
 }
 
 .avatar {
-  height: 50px;
-  border-radius: 25px;
-  margin: 10px;
+  height: 60px;
+  border-radius: 30px;
+  margin: 12px;
+}
+
+.avatar_small {
+  height: 32px;
+  border-radius: 16px;
+  margin: 5px;
 }
 
 .tweet {
