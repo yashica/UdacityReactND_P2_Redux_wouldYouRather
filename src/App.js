@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -40,20 +39,6 @@ class App extends Component {
       </Router>
     );
   }
-  // render() {
-  //   return (
-  //     <div>
-  //       <LoadingBar />
-  //       {this.props.loading === true ? null : ( // do not show Dashboard until loading is finished
-  //         // qid: 6ni6ok3ym7mf1p33lnez -> not answered by tylermcginnis
-  //         // qid: xj352vofupe1dqz9emx13r -> answered by tylermcginnis
-  //         <DetailsPage match={{ params: { qid: "xj352vofupe1dqz9emx13r" } }} />
-  //         // <NewQuestion />
-  //         // <Dashboard />
-  //       )}
-  //     </div>
-  //   );
-  // }
 }
 
 function mapStateToProps({ authedUser }) {
@@ -63,26 +48,3 @@ function mapStateToProps({ authedUser }) {
 }
 
 export default connect(mapStateToProps)(App);
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-//export default App;

@@ -112,9 +112,13 @@ _Parameters_: Object that contains the following properties: `authedUser`, `qid`
 | qid        | String | The id of the question that was answered                                                |
 | answer     | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"` |
 
-## Available Scripts
+## Installing project and Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+to install the project
 
 ### `yarn start`
 

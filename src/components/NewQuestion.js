@@ -38,7 +38,6 @@ class NewQuestion extends Component {
 
     /* Redirect to '/' if submitted */
     if (this.state.redirectToHome === true) {
-      this.setState({ redirectToHome: false });
       return <Redirect to="/" />;
     }
 

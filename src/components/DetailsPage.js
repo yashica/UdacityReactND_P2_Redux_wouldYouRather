@@ -8,6 +8,8 @@ class DetailsPage extends Component {
       qid,
       answered,
       selectedOption,
+      votesOptionOne,
+      votesOptionTwo,
       votesOptionOne_pct,
       votesOptionTwo_pct,
     } = this.props;
@@ -32,7 +34,8 @@ class DetailsPage extends Component {
                     : { color: "maroon" }
                 }
               >
-                {votesOptionOne_pct}% voted for option one
+                {votesOptionOne} persons / {votesOptionOne_pct}% voted for
+                option one
               </p>
               <p
                 className="center"
@@ -42,7 +45,8 @@ class DetailsPage extends Component {
                     : { color: "maroon" }
                 }
               >
-                {votesOptionTwo_pct}% voted for option two
+                {votesOptionTwo} persons / {votesOptionTwo_pct}% voted for
+                option two
               </p>
             </div>
           </div>
@@ -64,16 +68,18 @@ function mapStateToProps({ authedUser, questions, users }, props) {
   let selectedOption = null;
   let votesOptionOne_pct = null;
   let votesOptionTwo_pct = null;
+  let votesOptionOne = 0;
+  let votesOptionTwo = 0;
+  const totalAnswers = votesOptionOne + votesOptionTwo;
   if (answered) {
     selectedOption = users[authedUser].answers[qid];
     let votesOptionOne = question.optionOne.votes.length;
     let votesOptionTwo = question.optionTwo.votes.length;
-    votesOptionOne_pct = Math.round(
-      (votesOptionOne / (votesOptionOne + votesOptionTwo)) * 100
-    );
-    votesOptionTwo_pct = Math.round(
-      (votesOptionTwo / (votesOptionOne + votesOptionTwo)) * 100
-    );
+    //do not devide by zero
+    if (totalAnswers !== 0) {
+      votesOptionOne_pct = Math.round((votesOptionOne / totalAnswers) * 100);
+      votesOptionTwo_pct = Math.round((votesOptionTwo / totalAnswers) * 100);
+    }
   }
 
   return {
@@ -81,6 +87,8 @@ function mapStateToProps({ authedUser, questions, users }, props) {
     question,
     answered,
     selectedOption,
+    votesOptionOne,
+    votesOptionTwo,
     votesOptionOne_pct,
     votesOptionTwo_pct,
   };
