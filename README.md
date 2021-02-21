@@ -1,5 +1,3 @@
-# -----------------------------------------------------------------
-
 # Student:
 
 Anna Magdalena Blöckner
@@ -7,12 +5,6 @@ Anna Magdalena Blöckner
 # Course:
 
 Udacity React Nanodegree
-
-# -----------------------------------------------------------------
-
-# Udacity Starter Code README:
-
-# -----------------------------------------------------------------
 
 # Would You Rather Project
 
