@@ -14,67 +14,76 @@ class Dashboard extends Component {
       <div>
         <div>
           <h3 className="center">Would You Rather..</h3>
-          {/* <ul className="dashboard-list">
-            {this.props.questionIds.map((id) => (
-              <li key={id}>
-                <div>QUESTION ID: {id}</div>
-              </li>
-            ))}
-          </ul> */}
         </div>
         <div>
-          {/* <ul>
-            <li key={"page1"}> */}
-          <button
-            className="dashboard-tabButton"
-            focus={this.state.page === "page1"}
-            onClick={() => {
-              this.setState({ page: "page1" });
-            }}
-          >
-            Unanswered Questions
-          </button>
-          {/* </li>
-            <li key={"page2"}> */}
-          <button
-            className="dashboard-tabButton"
-            focus={this.state.page === "page2"}
-            onClick={() => {
-              this.setState({ page: "page2" });
-            }}
-          >
-            Answered Questions
-          </button>
-          {/* </li>
-          </ul> */}
+          {this.state.page === "page1" ? (
+            <button
+              className="dashboard-tabButton-selected"
+              onClick={() => {
+                this.setState({ page: "page1" });
+              }}
+            >
+              Unanswered Questions
+            </button>
+          ) : (
+            <button
+              className="dashboard-tabButton"
+              onClick={() => {
+                this.setState({ page: "page1" });
+              }}
+            >
+              Unanswered Questions
+            </button>
+          )}
+          {this.state.page === "page2" ? (
+            <button
+              className="dashboard-tabButton-selected"
+              onClick={() => {
+                this.setState({ page: "page2" });
+              }}
+            >
+              Answered Questions
+            </button>
+          ) : (
+            <button
+              className="dashboard-tabButton"
+              onClick={() => {
+                this.setState({ page: "page2" });
+              }}
+            >
+              Answered Questions
+            </button>
+          )}
         </div>
         {this.state.page === "page1" ? (
           <div className="dashboard-tabPage">
-            {/* <h3 className="center">
-              Questions not answered yet by {this.props.authedUser}
-            </h3> */}
-            <ul className="dashboard-list">
-              {this.props.unansweredQuestionsIds.map((id) => (
-                <li key={id}>
-                  {/* <div>QUESTION ID: {id}</div> */}
-                  <Question id={id} withSelection={true} />
-                </li>
-              ))}
-            </ul>
+            {this.props.unansweredQuestionsIds.length > 0 ? (
+              <ul className="dashboard-list">
+                {this.props.unansweredQuestionsIds.map((id) => (
+                  <li key={id}>
+                    <Question id={id} withSelection={true} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <h3 className="center">
+                No open polls. For adding a new question got to 'New Question'.
+              </h3>
+            )}
           </div>
         ) : (
           <div className={"dashboard-tabPage"}>
-            {/* <h3 className="center">
-              Questions answered by {this.props.authedUser}
-            </h3> */}
-            <ul className="dashboard-list">
-              {this.props.answeredQuestionIds.map((id) => (
-                <li key={id}>
-                  {/* <div>QUESTION ID: {id}</div> */}
-                  <Question id={id} />
-                </li>
-              ))}
-            </ul>
+            {this.props.answeredQuestionIds.length > 0 ? (
+              <ul className="dashboard-list">
+                {this.props.answeredQuestionIds.map((id) => (
+                  <li key={id}>
+                    <Question id={id} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <h3 className="center">No questions answered yet.</h3>
+            )}
           </div>
         )}
       </div>

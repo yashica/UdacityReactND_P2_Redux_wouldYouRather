@@ -2,66 +2,45 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
 
-import {
-  TiArrowBackOutline,
-  TiHeartOutline,
-  TiHeartFullOutline,
-  TiStarburstOutline,
-  TiStarOutline,
-} from "react-icons/ti"; //IoMdCheckmarkCircleOutline
-
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-
 class DetailsPage extends Component {
   render() {
     const {
       qid,
-      question,
       answered,
-      authedUser,
       selectedOption,
       votesOptionOne_pct,
       votesOptionTwo_pct,
     } = this.props;
 
-    // var optionOneStyle = classNames({
-    //   selectedOption: selectedOption === "optionOne",
-    //   notSelectedOption: !selectedOption === "optionOne",
-    // });
     return (
       <div>
+        <div>
+          <h2 className="center">{answered ? "Results" : "Poll"}</h2>
+        </div>
         {answered ? (
           <div className="detailsContainer">
-            <Question id={qid} />
+            <Question id={qid} onDetailsPage={true} withSelection={false} />
             <div>
-              <p style={{ color: "green" }}>
+              <h3 className="center" style={{ color: "green" }}>
                 Your vote: {selectedOption && selectedOption}
-              </p>
+              </h3>
               <p
-                // className={`${
-                //   selectedOption === "optionOne"
-                //     ? "selectedOption"
-                //     : "notSelectedOption"
-                // }`}
+                className="center"
                 style={
                   selectedOption === "optionOne"
                     ? { color: "green" }
-                    : { color: "red" }
+                    : { color: "maroon" }
                 }
               >
                 {votesOptionOne_pct}% voted for option one
               </p>
               <p
+                className="center"
                 style={
                   selectedOption === "optionTwo"
                     ? { color: "green" }
-                    : { color: "red" }
+                    : { color: "maroon" }
                 }
-                // className={`${
-                //   selectedOption === "optionTwo"
-                //     ? "selectedOption"
-                //     : "notSelectedOption"
-                // }`}
               >
                 {votesOptionTwo_pct}% voted for option two
               </p>
@@ -69,20 +48,9 @@ class DetailsPage extends Component {
           </div>
         ) : (
           <div className="detailsContainer">
-            <Question id={qid} withSelection={true} />
+            <Question id={qid} onDetailsPage={true} withSelection={true} />
           </div>
         )}
-        {/* DETAILS PAGE */}
-        {/* <Tweet id={id} />
-        <NewTweet id={id} />
-        {replies.length !== 0 && <h3 className="center">Replies</h3>}
-        <ul>
-          {replies.map((replyId) => (
-            <li key={replyId}>
-              <Tweet id={replyId} />
-            </li>
-          ))}
-        </ul> */}
       </div>
     );
   }
@@ -90,6 +58,7 @@ class DetailsPage extends Component {
 
 function mapStateToProps({ authedUser, questions, users }, props) {
   const { qid } = props.match.params;
+
   const question = questions[qid];
   const answered = Object.keys(users[authedUser].answers).includes(qid);
   let selectedOption = null;
@@ -99,14 +68,12 @@ function mapStateToProps({ authedUser, questions, users }, props) {
     selectedOption = users[authedUser].answers[qid];
     let votesOptionOne = question.optionOne.votes.length;
     let votesOptionTwo = question.optionTwo.votes.length;
-    votesOptionOne_pct = 17;
-    votesOptionTwo_pct = 83;
-    // votesOptionOne_pct = Math.round(
-    //   votesOptionOne / (votesOptionOne + votesOptionTwo)
-    // );
-    // votesOptionTwo_pct = Math.round(
-    //   votesOptionOne / (votesOptionOne + votesOptionTwo)
-    // );
+    votesOptionOne_pct = Math.round(
+      (votesOptionOne / (votesOptionOne + votesOptionTwo)) * 100
+    );
+    votesOptionTwo_pct = Math.round(
+      (votesOptionTwo / (votesOptionOne + votesOptionTwo)) * 100
+    );
   }
 
   return {

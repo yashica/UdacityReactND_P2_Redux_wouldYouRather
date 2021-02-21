@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../actions/shared";
+import { Redirect } from "react-router-dom";
 
 class NewQuestion extends Component {
   state = {
     text_option1: "",
     text_option2: "",
+    redirectToHome: false,
   };
   handleInput1Change = (e) => {
     this.setState({ text_option1: e.target.value });
@@ -18,7 +20,7 @@ class NewQuestion extends Component {
 
     const { text_option1, text_option2 } = this.state;
     const { dispatch } = this.props;
-    // todo: Add Tweet to Store
+
     dispatch(handleAddQuestion(text_option1, text_option2));
 
     console.log(
@@ -28,12 +30,17 @@ class NewQuestion extends Component {
     this.setState(() => ({
       text_option1: "",
       text_option2: "",
+      redirectToHome: true,
     }));
   };
   render() {
     const { text_option1, text_option2 } = this.state;
 
-    /* todo: Redirect to / if submitted */
+    /* Redirect to '/' if submitted */
+    if (this.state.redirectToHome === true) {
+      this.setState({ redirectToHome: false });
+      return <Redirect to="/" />;
+    }
 
     const option1Left = 280 - text_option1.length;
     const option2Left = 280 - text_option2.length;

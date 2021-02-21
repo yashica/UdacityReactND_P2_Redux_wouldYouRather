@@ -28,7 +28,7 @@ class App extends Component {
             {this.props.loggedIn === true ? ( // do not show if authedUser === null or loading isn't finished
               <div>
                 <Route path="/" exact component={Dashboard} />
-                <Route path="/questions/:id" component={DetailsPage} />
+                <Route path="/questions/:qid" component={DetailsPage} />
                 <Route path="/add" component={NewQuestion} />
                 <Route path="/leaderboard" component={LeaderBoard} />
               </div>

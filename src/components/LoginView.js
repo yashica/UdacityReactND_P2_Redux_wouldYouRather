@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser";
-import UserLoginItem from "./Question";
 import LoginListItem from "./LoginListItem";
 
 class LoginView extends Component {
@@ -9,6 +8,7 @@ class LoginView extends Component {
     super(props);
     this.state = {
       selectedUser: "",
+      loginError_noUserSelected: false,
     };
   }
 
@@ -16,6 +16,7 @@ class LoginView extends Component {
     e.preventDefault();
     if (this.state.selectedUser === "") {
       console.log(`No user selected yet`);
+      this.setState({ loginError_noUserSelected: true });
     } else {
       const { dispatch } = this.props;
       const AUTHED_ID = this.state.selectedUser;
@@ -43,19 +44,24 @@ class LoginView extends Component {
               return (
                 <li
                   key={id}
-                  onClick={() => this.setState({ selectedUser: id })}
+                  onClick={() =>
+                    this.setState({
+                      selectedUser: id,
+                      loginError_noUserSelected: false,
+                    })
+                  }
                 >
                   <LoginListItem name={name} avatarURL={avatarURL} />
                 </li>
               );
             })}
           </ul>
+          {this.state.loginError_noUserSelected && (
+            <h5 className="center">Please select a user</h5>
+          )}
           <h2 className="center" onClick={this.login}>
             Login
           </h2>
-          {/* <button className="center" onClick={this.login}>
-            {"Log In"}
-          </button> */}
         </div>
       </div>
     );

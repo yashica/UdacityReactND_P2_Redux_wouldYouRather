@@ -1,22 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleVote } from "../actions/shared";
-//import { formatTweet, formatDate } from "../utils/helpers";
-
-// import {
-//   TiArrowBackOutline,
-//   TiHeartOutline,
-//   TiHeartFullOutline,
-// } from "react-icons/ti";
+import { Link, withRouter } from "react-router-dom";
 
 class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //withSelection: true,
+      onDetailsPage: this.props.onDetailsPage
+        ? this.props.onDetailsPage
+        : false, //defaults to false
       withSelection: this.props.withSelection
         ? this.props.withSelection
-        : false,
+        : false, //defaults to false
       selectedOption: "",
     };
     this.onChangeValue = this.onChangeValue.bind(this);
@@ -41,55 +37,35 @@ class Question extends Component {
           selectedOption: this.state.selectedOption,
         })
       );
+      this.setState({ withSelection: false });
     }
   };
 
-  viewPoll = (e) => {
-    e.preventDefault();
-    console.log("View Poll..");
-
-    // todo: Handle Like Tweet
-  };
-  // toParent = (e, id) => {
-  //   e.preventDefault();
-  //   // todo: Redirect to parent Tweet.
-  // };
   render() {
-    const { question } = this.props;
+    const { question, id } = this.props;
     const { author } = this.props;
 
     if (question === null) {
-      return <p>This Question doesn't exist</p>;
+      return (
+        <h2 className="center">
+          We are sorry, a question with the given id does not exist.
+        </h2>
+      );
     }
 
     const { optionOne, optionTwo } = question;
-
     const { name, avatarURL } = author;
 
     return (
-      // <div className="question">
-      //   <div>
-      //     <span>{author ? author.name : "Unknown author"} asks:</span>
-      //   </div>
       <div className="tweet">
         <img src={avatarURL} alt={`Avatar of ${name}`} className="avatar" />
         <div className="tweet-info">
           <div>
             <span>{author ? author.name : "Unknown author"} asks:</span>
-            {/* <div>{formatDate(timestamp)}</div> */}
-            {/* {parent && (
-                <button
-                  className="replying-to"
-                  onClick={(e) => this.toParent(e, parent.id)}
-                >
-                  Replying to @{parent.author}
-                </button>
-              )}
-              <p>{text}</p> */}
           </div>
           <div>
             <p>Would you rather...</p>
-            {this.state.withSelection ? (
+            {this.state.onDetailsPage && this.state.withSelection ? (
               <div onChange={this.onChangeValue}>
                 <p>
                   <input type="radio" value="optionOne" name="answer" />{" "}
@@ -101,21 +77,6 @@ class Question extends Component {
                 </p>
               </div>
             ) : (
-              // <div>
-              //   <input type="radio" id="option1" name="answers" value="option1">
-              //     {optionOne.text} or
-              //   </input>
-              //   <label for="option1">{optionOne.text} or</label>
-              //   <br></br>
-              //   <input
-              //     type="radio"
-              //     id="option2"
-              //     name="answers"
-              //     value="option2"
-              //   />
-              //   <label for="option2">{optionTwo.text}?</label>
-              //   <br></br>
-              // </div>
               <div>
                 <p>... {optionOne.text} or</p>
                 <p>... {optionTwo.text}?</p>
@@ -123,45 +84,41 @@ class Question extends Component {
             )}
           </div>
           <div>
-            <button
-              onClick={
-                this.state.withSelection ? this.submitVote : this.viewPoll
-              }
-            >
-              {this.state.withSelection ? "Submit" : "View Poll"}
-            </button>
+            {this.state.onDetailsPage ? (
+              this.state.withSelection && (
+                <button
+                  onClick={this.submitVote}
+                  disabled={
+                    this.state.withSelection &&
+                    this.state.onDetailsPage &&
+                    this.state.selectedOption === ""
+                  }
+                >
+                  Submit
+                </button>
+              )
+            ) : (
+              //Link to DetailsPage
+              <Link className="linkBtn" to={`/questions/${id}`}>
+                View Poll
+              </Link>
+            )}
           </div>
-          {/* <div className="tweet-icons">
-              <TiArrowBackOutline className="tweet-icon" />
-              <span>{replies !== 0 && replies}</span>
-              <button className="heart-button" onClick={this.handleLike}>
-                {hasLiked === true ? (
-                  <TiHeartFullOutline color="#e0245e" className="tweet-icon" />
-                ) : (
-                  <TiHeartOutline className="tweet-icon" />
-                )}
-              </button>
-              <span>{likes !== 0 && likes}</span>
-            </div> */}
         </div>
       </div>
-      // </div>
     );
   }
 }
 
 function mapStateToProps({ authedUser, users, questions }, { id }) {
   const question = questions[id];
-  const author = users[question.author];
-  //const parentTweet = tweet ? tweets[tweet.replyingTo] : null;
+  console.log(`In Question: id = ${id}`);
 
   return {
     authedUser,
     question: question ? question : null,
-    author: author,
-    // ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
-    // : null,
+    author: question ? users[question.author] : 0,
   };
 }
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));

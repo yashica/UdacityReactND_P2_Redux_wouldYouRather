@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser"; //authedUser actionCreator
 import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class NavBar extends Component {
   constructor(props) {
@@ -14,8 +15,7 @@ class NavBar extends Component {
     console.log("LOGOUT!");
     const { dispatch } = this.props;
     dispatch(setAuthedUser(null));
-    //     dispatch(setAuthedUser(authedUser) ) from "../actions/authedUser"; //authedUser actionCreator
-    // );
+    this.props.history.push(`/`);
   };
 
   render() {
@@ -70,4 +70,4 @@ function mapStateToProps({ authedUser, users }) {
   };
 }
 
-export default connect(mapStateToProps)(NavBar);
+export default withRouter(connect(mapStateToProps)(NavBar));
