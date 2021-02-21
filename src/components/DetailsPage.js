@@ -34,8 +34,10 @@ class DetailsPage extends Component {
                     : { color: "maroon" }
                 }
               >
-                {votesOptionOne} persons / {votesOptionOne_pct}% voted for
-                option one
+                {`${votesOptionOne} of ${
+                  votesOptionOne + votesOptionTwo
+                } persons ( ${votesOptionOne_pct}% ) voted for
+                option one.`}
               </p>
               <p
                 className="center"
@@ -45,8 +47,10 @@ class DetailsPage extends Component {
                     : { color: "maroon" }
                 }
               >
-                {votesOptionTwo} persons / {votesOptionTwo_pct}% voted for
-                option two
+                {`${votesOptionTwo}  of ${
+                  votesOptionOne + votesOptionTwo
+                } persons ( ${votesOptionTwo_pct}% ) voted for
+                option two.`}
               </p>
             </div>
           </div>
@@ -70,11 +74,12 @@ function mapStateToProps({ authedUser, questions, users }, props) {
   let votesOptionTwo_pct = null;
   let votesOptionOne = 0;
   let votesOptionTwo = 0;
-  const totalAnswers = votesOptionOne + votesOptionTwo;
+  let totalAnswers = 0;
   if (answered) {
     selectedOption = users[authedUser].answers[qid];
-    let votesOptionOne = question.optionOne.votes.length;
-    let votesOptionTwo = question.optionTwo.votes.length;
+    votesOptionOne = question.optionOne.votes.length;
+    votesOptionTwo = question.optionTwo.votes.length;
+    totalAnswers = votesOptionOne + votesOptionTwo;
     //do not devide by zero
     if (totalAnswers !== 0) {
       votesOptionOne_pct = Math.round((votesOptionOne / totalAnswers) * 100);
