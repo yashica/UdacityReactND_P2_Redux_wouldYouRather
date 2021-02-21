@@ -15,7 +15,6 @@ class LeaderBoard extends Component {
         <div>
           <h3 className="center">User Ranking</h3>
         </div>
-        {/* <div className="dashboard-tabPage"> */}
         <ul className="dashboard-list">
           {this.props.userRankingList.map((id, index) => (
             <li key={id}>
@@ -23,7 +22,6 @@ class LeaderBoard extends Component {
             </li>
           ))}
         </ul>
-        {/* </div> */}
       </div>
     );
   }
